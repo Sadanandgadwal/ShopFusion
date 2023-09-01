@@ -26,7 +26,7 @@ export const usecartStore = create(
         });
 
         if (isPresent) {
-          alert("product already in cart");
+          return alert("product already in cart");
         }
 
         set(

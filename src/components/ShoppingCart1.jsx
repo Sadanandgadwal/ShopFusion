@@ -35,6 +35,7 @@ export default function ShoppingCart1() {
     getcartProducts
   );
 
+  console.log(isLoading);
   console.log(data);
 
   const totalPrice = data?.reduce((acc, { price }) => {
