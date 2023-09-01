@@ -132,7 +132,7 @@ export default function ShoppingCart1() {
                   Order total
                 </dt>
                 <dd className="text-base font-medium text-gray-900">
-                  ${totalPrice}
+                  ${totalPrice.toFixed(1)}
                 </dd>
               </div>
             </dl>
