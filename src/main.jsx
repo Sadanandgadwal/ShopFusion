@@ -11,8 +11,8 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Auth0Provider
-      domain="dev-ma5x4ocrtv1m0qy5.us.auth0.com"
-      clientId="ZKpqJ4V77hHVhun41p00pFQTkVxQ9FsP"
+      domain={import.meta.env.VITE_AUTHO_DOMAIN}
+      clientId={import.meta.env.VITE_BASE_URL}
       authorizationParams={{
         redirect_uri: window.location.origin,
       }}
