@@ -13,7 +13,7 @@ const Footer = () => {
                 alt="FlowBite Logo"
               /> */}
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                Ecom
+                ShopFusion
               </span>
             </a>
           </div>
@@ -88,7 +88,7 @@ const Footer = () => {
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
             <a href="https://sadanandgadwal.me/" className="hover:underline">
-              Ecom
+              ShopFusion
             </a>
             . All Rights Reserved.
           </span>
