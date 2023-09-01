@@ -31,10 +31,10 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="https://tailwindcss.com/"
+                    href="https://docs.pmnd.rs/zustand/getting-started/introduction"
                     className="hover:underline"
                   >
-                    Tailwind CSS
+                    Zustand
                   </a>
                 </li>
               </ul>

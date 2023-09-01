@@ -15,7 +15,6 @@ const Product = ({ product }) => {
   async function AddCart(id) {
     const product = { productId: id, quantity: 1 };
     AddtoCart(product);
-
     alert("Product Added Successfully to Cart");
   }
 

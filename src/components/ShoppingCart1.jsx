@@ -72,30 +72,19 @@ export default function ShoppingCart1() {
         <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
           <div aria-labelledby="cart-heading" className="lg:col-span-7">
             <h2 id="cart-heading" className=" text-black">
-              Items in your shopping cart
+              {data.length === 0
+                ? "No Cart Items Found"
+                : "Items in your shopping cart"}
             </h2>
             <ul
               role="list"
               className="divide-y divide-gray-200 border-b border-t border-gray-200"
             >
-              {data.length >= 0 ? (
-                data?.map((product, index) => (
-                  <li key={index} className="flex py-6 sm:py-10 ">
-                    <CartProduct product={product} />
-                  </li>
-                ))
-              ) : (
-                <li className="text-black flex py-6 sm:py-10 bg-black">
-                  No Items In Cart Lorem, ipsum dolor sit amet consectetur
-                  adipisicing elit. Aliquam ea molestiae molestias ipsam
-                  voluptates ullam harum, porro hic minima omnis totam inventore
-                  itaque minus velit repellat pariatur quia accusamus aut,
-                  voluptatem, natus expedita aperiam? Beatae, recusandae id amet
-                  reiciendis, ut mollitia deserunt aperiam placeat nisi sed
-                  aliquam, eligendi nam itaque? Labore alias nemo neque tempora
-                  sint earum dolores obcaecati?
+              {data?.map((product, index) => (
+                <li key={index} className="flex py-6 sm:py-10 ">
+                  <CartProduct product={product} />
                 </li>
-              )}
+              ))}
             </ul>
           </div>
 
@@ -111,7 +100,7 @@ export default function ShoppingCart1() {
               Order summary
             </h2>
 
-            <dl className="mt-6 space-y-4">
+            <dl className="mt-6 space-y-4 px-4 py-6">
               <div className="flex items-center justify-between">
                 <ol className="text-sm text-gray-600">
                   {data?.map((product, index) => (
@@ -120,7 +109,7 @@ export default function ShoppingCart1() {
                       className="text-sm list-decimal font-medium text-gray-900"
                     >
                       <span>{product.title}</span>
-                      &nbsp;
+                      &nbsp; &nbsp;
                       <span> ${product.subtotal}</span>
                     </li>
                   ))}
