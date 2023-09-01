@@ -79,7 +79,7 @@ const Footer = () => {
                     target="_blank"
                     className="hover:underline"
                   >
-                    Githab Code
+                    Github Repo
                   </Link>
                 </li>
               </ul>
