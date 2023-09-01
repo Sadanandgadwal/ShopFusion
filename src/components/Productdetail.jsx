@@ -1,14 +1,25 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useProductStore } from "../store/zustore";
+import { useNavigate, useParams } from "react-router-dom";
+import { usecartStore } from "../store/zustore";
 const Productdetail = () => {
   const loading = useProductStore((store) => store.loading);
   const product = useProductStore((store) => store.product);
   const getproduct = useProductStore((store) => store.getProduct);
 
-  const { id } = useParams();
+  const navgate = useNavigate();
 
-  // console.log(product);
+  const cart = usecartStore((store) => store.cart);
+  const { id } = useParams();
+  // console.log(cart);
+
+  const AddtoCart = usecartStore((store) => store.AddtoCart);
+  async function AddCart(id) {
+    const product = { productId: id, quantity: 1 };
+    AddtoCart(product);
+    navgate("/");
+    alert("Product Added Successfully to Cart");
+  }
 
   useEffect(() => {
     getproduct(id);
@@ -36,7 +47,7 @@ const Productdetail = () => {
               <img
                 src={product.image}
                 alt="Two each of gray, white, and black shirts laying flat."
-                className="h-full w-full object-cover object-center"
+                className="h-full w-full object-fill object-center"
               />
             </div>
           </div>
@@ -137,6 +148,10 @@ const Productdetail = () => {
             <form className="mt-10">
               <button
                 type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  AddCart(product.id);
+                }}
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to Cart

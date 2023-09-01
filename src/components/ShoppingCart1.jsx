@@ -55,30 +55,38 @@ export default function ShoppingCart1() {
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl m-4">
           Shopping Cart
         </h1>
-        <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
-          <section aria-labelledby="cart-heading" className="lg:col-span-7">
-            <h2 id="cart-heading" className="sr-only">
+        <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+          <div aria-labelledby="cart-heading" className="lg:col-span-7">
+            <h2 id="cart-heading" className=" text-black">
               Items in your shopping cart
             </h2>
-
             <ul
               role="list"
               className="divide-y divide-gray-200 border-b border-t border-gray-200"
             >
-              {data ? (
-                data.map((product, index) => (
-                  <li key={index} className="flex py-6 sm:py-10">
+              {data.length >= 0 ? (
+                data?.map((product, index) => (
+                  <li key={index} className="flex py-6 sm:py-10 ">
                     <CartProduct product={product} />
                   </li>
                 ))
               ) : (
-                <div>No Items In Cart</div>
+                <li className="text-black flex py-6 sm:py-10 bg-black">
+                  No Items In Cart Lorem, ipsum dolor sit amet consectetur
+                  adipisicing elit. Aliquam ea molestiae molestias ipsam
+                  voluptates ullam harum, porro hic minima omnis totam inventore
+                  itaque minus velit repellat pariatur quia accusamus aut,
+                  voluptatem, natus expedita aperiam? Beatae, recusandae id amet
+                  reiciendis, ut mollitia deserunt aperiam placeat nisi sed
+                  aliquam, eligendi nam itaque? Labore alias nemo neque tempora
+                  sint earum dolores obcaecati?
+                </li>
               )}
             </ul>
-          </section>
+          </div>
 
           {/* Order summary */}
-          <section
+          <div
             aria-labelledby="summary-heading"
             className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
           >
@@ -92,17 +100,16 @@ export default function ShoppingCart1() {
             <dl className="mt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <ol className="text-sm text-gray-600">
-                  {data &&
-                    data.map((product, index) => (
-                      <li
-                        key={index}
-                        className="text-sm list-decimal font-medium text-gray-900"
-                      >
-                        <span>{product.title}</span>
-                        &nbsp;
-                        <span> ${product.subtotal}</span>
-                      </li>
-                    ))}
+                  {data?.map((product, index) => (
+                    <li
+                      key={index}
+                      className="text-sm list-decimal font-medium text-gray-900"
+                    >
+                      <span>{product.title}</span>
+                      &nbsp;
+                      <span> ${product.subtotal}</span>
+                    </li>
+                  ))}
                 </ol>
               </div>
 
@@ -124,8 +131,8 @@ export default function ShoppingCart1() {
                 Checkout
               </button>
             </div>
-          </section>
-        </form>
+          </div>
+        </div>
       </div>
     </div>
   );

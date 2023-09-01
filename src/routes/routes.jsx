@@ -7,7 +7,7 @@ import PostProducts from "../admin/PostProducts";
 import { useAuth0 } from "@auth0/auth0-react";
 import Homepage from "../pages/Homepage";
 import Productdetail from "../components/Productdetail";
-import ShoppingCart from "../components/ShoppingCart";
+
 import Thankyou from "../components/Thankyou";
 import ShoppingCart1 from "../components/ShoppingCart1";
 // import Stripe from "../stripepayment/Stripe";
@@ -26,7 +26,7 @@ const AppRoutes = () => {
         <Route path="/add" element={<PostProducts />} />
         <Route path="/Home" element={<Homepage />} />
         <Route path="/Productdetail/:id" element={<Productdetail />} />
-        <Route path="/ShoppingCart" element={<ShoppingCart />} />
+
         <Route path="/ShoppingCart1" element={<ShoppingCart1 />} />
         <Route path="/Thankyou" element={<Thankyou />} />
         {/* <Route path="/Payment" element={<Stripe />} /> */}
