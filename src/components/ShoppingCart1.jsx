@@ -5,7 +5,7 @@ import CartProduct from "./CartProduct";
 import useSWR from "swr";
 
 export default function ShoppingCart1() {
-  const loading = usecartStore((store) => store.loading);
+  // const loading = usecartStore((store) => store.loading);
   const cart = usecartStore((store) => store.cart);
 
   const getcartProducts = (url) => {
@@ -35,11 +35,13 @@ export default function ShoppingCart1() {
     getcartProducts
   );
 
+  console.log(data);
+
   const totalPrice = data?.reduce((acc, { price }) => {
     return (acc += price);
   }, 0);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div>
         <p>Loading</p>
@@ -62,12 +64,15 @@ export default function ShoppingCart1() {
               role="list"
               className="divide-y divide-gray-200 border-b border-t border-gray-200"
             >
-              {data &&
+              {data ? (
                 data.map((product, index) => (
                   <li key={index} className="flex py-6 sm:py-10">
                     <CartProduct product={product} />
                   </li>
-                ))}
+                ))
+              ) : (
+                <div>No Items In Cart</div>
+              )}
             </ul>
           </section>
 
