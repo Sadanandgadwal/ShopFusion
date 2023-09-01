@@ -8,35 +8,37 @@ export default function ShoppingCart1() {
   // const loading = usecartStore((store) => store.loading);
   const cart = usecartStore((store) => store.cart);
 
-  const getcartProducts = (url) => {
-    if (!cart.length === 0) return;
+  const getcartProducts = async (url) => {
+    if (!cart.length === 0) return [];
 
-    let cartProducts = [];
+    try {
+      const cartProducts = await Promise.all(
+        cart.map(async (cartItem) => {
+          const response = await axios.get(url + `/${cartItem.productId}`);
+          return {
+            id: response.data.id,
+            title: response.data.title,
+            price: response.data.price,
+            category: response.data.category,
+            image: response.data.image,
+            qty: cartItem.quantity,
+            subtotal: response.data.price * cartItem.quantity,
+          };
+        })
+      );
 
-    for (const cartItem of cart) {
-      axios.get(url + `/${cartItem.productId}`).then((response) => {
-        const cartProduct = {
-          id: response.data.id,
-          title: response.data.title,
-          price: response.data.price,
-          category: response.data.category,
-          image: response.data.image,
-          qty: cartItem.quantity,
-          subtotal: response.data.price * cartItem.quantity,
-        };
-        cartProducts.push(cartProduct);
-      });
+      return cartProducts;
+    } catch (error) {
+      // Handle errors here, you can log them or set an error state
+      console.error("Error fetching cart products:", error);
+      throw error; // Rethrow the error to let SWR handle it
     }
-    return cartProducts;
   };
 
   const { data, error, isLoading } = useSWR(
     import.meta.env.VITE_PRODUCTS,
     getcartProducts
   );
-
-  console.log(isLoading);
-  console.log(data);
 
   const totalPrice = data?.reduce((acc, { price }) => {
     return (acc += price);
@@ -49,6 +51,17 @@ export default function ShoppingCart1() {
       </div>
     );
   }
+
+  if (error) {
+    return (
+      <div>
+        <p>Error fetching cart products. Please try again later.</p>
+      </div>
+    );
+  }
+
+  console.log(isLoading);
+  console.log(data);
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">

@@ -10,6 +10,7 @@ import Productdetail from "../components/Productdetail";
 
 import Thankyou from "../components/Thankyou";
 import ShoppingCart1 from "../components/ShoppingCart1";
+import Contact from "../components/Contact";
 // import Stripe from "../stripepayment/Stripe";
 
 const AppRoutes = () => {
@@ -29,7 +30,7 @@ const AppRoutes = () => {
 
         <Route path="/ShoppingCart1" element={<ShoppingCart1 />} />
         <Route path="/Thankyou" element={<Thankyou />} />
-        {/* <Route path="/Payment" element={<Stripe />} /> */}
+        <Route path="/Contact" element={<Contact />} />
       </Routes>
     </Ui>
   );
