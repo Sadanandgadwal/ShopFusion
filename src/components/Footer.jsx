@@ -75,11 +75,11 @@ const Footer = () => {
 
                 <li className="mb-4">
                   <Link
-                    to="https://github.com/Sadanandgadwal"
+                    to="https://github.com/Sadanandgadwal/Ecom"
                     target="_blank"
                     className="hover:underline"
                   >
-                    Gitlab Code
+                    Githab Code
                   </Link>
                 </li>
               </ul>
