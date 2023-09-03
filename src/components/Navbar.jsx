@@ -1,14 +1,29 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { userStore } from "../store/zustore";
-
+import { userStore, usewishListStore } from "../store/zustore";
+import { AiTwotoneHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { usecartStore } from "../store/zustore";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+  strokeWidth={1.5}
+  stroke="currentColor"
+  className="w-6 h-6"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+  />
+</svg>;
 
 const Navbar = () => {
   const cart = usecartStore((store) => store.cart);
+  const Wishlist = usewishListStore((store) => store.Wishlist);
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated } = useAuth0();
@@ -114,6 +129,18 @@ const Navbar = () => {
                 />
                 <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
                   {cart.length}
+                </span>
+                <span className="sr-only">items in cart, view bag</span>
+              </a>
+            </div>
+            <div className="ml-4 flow-root lg:ml-6">
+              <a href="/WishList" className="group -m-2 flex items-center p-2">
+                <AiTwotoneHeart
+                  className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                  aria-hidden="true"
+                />
+                <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                  {Wishlist.length}
                 </span>
                 <span className="sr-only">items in cart, view bag</span>
               </a>

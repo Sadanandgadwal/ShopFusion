@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import { useProductStore } from "../store/zustore";
-import { useNavigate, useParams } from "react-router-dom";
-import { usecartStore } from "../store/zustore";
+import { useParams } from "react-router-dom";
+import { usecartStore, usewishListStore } from "../store/zustore";
+import { AiTwotoneHeart } from "react-icons/ai";
+import { useAuth0 } from "@auth0/auth0-react";
+
+import { notify } from "../utils/notification";
+
 const Productdetail = () => {
+  const { user, isAuthenticated } = useAuth0();
   const loading = useProductStore((store) => store.loading);
   const product = useProductStore((store) => store.product);
   const getproduct = useProductStore((store) => store.getProduct);
-
-  const navgate = useNavigate();
 
   const cart = usecartStore((store) => store.cart);
   const { id } = useParams();
@@ -15,10 +19,18 @@ const Productdetail = () => {
 
   const AddtoCart = usecartStore((store) => store.AddtoCart);
   async function AddCart(id) {
+    if (!isAuthenticated) {
+      return notify.error("Login to add item in the cart");
+    }
     const product = { productId: id, quantity: 1 };
     AddtoCart(product);
-    navgate("/");
-    alert("Product Added Successfully to Cart");
+    notify.sucess("added");
+  }
+
+  const AddtoWishlist = usewishListStore((store) => store.AddtoWishlist);
+  async function Wishlist(id) {
+    const product = { productId: id, quantity: 1 };
+    AddtoWishlist(product);
   }
 
   useEffect(() => {
@@ -31,6 +43,7 @@ const Productdetail = () => {
       </div>
     );
   }
+
   return (
     <div className="bg-white">
       <div className="pt-6">
@@ -145,17 +158,59 @@ const Productdetail = () => {
                 <p className="text-base text-gray-900">{product.description}</p>
               </div>
             </div>
-            <form className="mt-10">
+            <form className="mt-6 flex flex-row">
               <button
                 type="submit"
                 onClick={(e) => {
                   e.preventDefault();
                   AddCart(product.id);
                 }}
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="mt-10 flex w-64 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to Cart
               </button>
+              <AiTwotoneHeart
+                className="h-6 w-6 mt-14 flex-1 text-gray-400 group-hover:text-gray-500"
+                aria-hidden="true"
+                onClick={(e) => {
+                  e.preventDefault();
+                  Wishlist(product.id);
+                }}
+              />
+              {/* <div className="inline-flex items-center h-6 w-6 mt-14 ml-6">
+                <label
+                  className="relative flex cursor-pointer items-center rounded-full p-3"
+                  for="checkbox"
+                  data-ripple-dark="true"
+                >
+                  <input
+                    type="checkbox"
+                    className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
+                    id="checkbox"
+                    checked
+                    onClick={(e) => {
+                      e.preventDefault();
+                      Wishlist(product.id);
+                    }}
+                  />
+                  <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-3.5 w-3.5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                </label>
+              </div> */}
             </form>
           </div>
         </div>

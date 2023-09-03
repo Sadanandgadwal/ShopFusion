@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
+import { notify } from "../utils/notification";
 
 export const SignupButton = () => {
   const { loginWithRedirect } = useAuth0();
@@ -13,6 +14,7 @@ export const SignupButton = () => {
         screen_hint: "signup",
       },
     });
+    notify.sucess("SignUp Successfully");
   };
 
   return (

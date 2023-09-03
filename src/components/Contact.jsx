@@ -1,5 +1,6 @@
 import emailjs from "@emailjs/browser";
 import { useState, useRef } from "react";
+import { notify } from "../utils/notification";
 export default function Contact() {
   const [mailMessage, setmaiMessage] = useState({
     fullName: "",
@@ -20,7 +21,7 @@ export default function Contact() {
       )
       .then(
         (result) => {
-          alert("Message Sent Successfully");
+          notify.sucess("Message Sent Successfully");
         },
         (error) => {
           console.log(error.text);

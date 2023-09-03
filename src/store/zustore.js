@@ -2,6 +2,7 @@ import axios from "axios";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { produce } from "immer";
+import { notify } from "../utils/notification";
 export const userStore = create(
   persist(
     (set) => ({
@@ -26,7 +27,7 @@ export const usecartStore = create(
         });
 
         if (isPresent) {
-          return alert("product already in cart");
+          return notify.error("product already in cart");
         }
 
         set(
@@ -34,6 +35,7 @@ export const usecartStore = create(
             store.cart.push(val);
           })
         );
+        return notify.sucess("Product Added Successfully to Cart");
       },
       removeCart: (id) => {
         set((state) => ({
@@ -43,6 +45,41 @@ export const usecartStore = create(
     }),
 
     { name: "cart" }
+  )
+);
+
+export const usewishListStore = create(
+  persist(
+    (set, get) => ({
+      Wishlist: [],
+      loading: false,
+
+      AddtoWishlist: (val) => {
+        const Wishlist = get().Wishlist;
+
+        const isPresent = Wishlist.some((item) => {
+          return item.productId === val.productId;
+        });
+
+        if (isPresent) {
+          return notify.error("product already in Wishlist");
+        }
+
+        set(
+          produce((store) => {
+            store.Wishlist.push(val);
+          })
+        );
+        notify.sucess("Product Added Successfully to WishList");
+      },
+      removeWishlist: (id) => {
+        set((state) => ({
+          Wishlist: state.Wishlist.filter((item) => id !== item.productId),
+        }));
+      },
+    }),
+
+    { name: "Wishlist" }
   )
 );
 

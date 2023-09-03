@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
+import { notify } from "../utils/notification";
 
 export const LogoutButton = () => {
   const { logout } = useAuth0();
@@ -10,6 +11,7 @@ export const LogoutButton = () => {
         returnTo: window.location.origin,
       },
     });
+    notify.sucess("Logout Successfully");
   };
 
   return (
