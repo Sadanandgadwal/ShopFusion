@@ -60,3 +60,5 @@ const Wishlistproduct = ({ product }) => {
 };
 
 export default Wishlistproduct;
+
+// List of products
